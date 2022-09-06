@@ -8,16 +8,17 @@ namespace MessageService.Controllers
     public class MessageController : ControllerBase
     {
         private IServiceBusSender _serviceBusSender;
-
-        public MessageController(IServiceBusSender serviceBusSender)
+        private ILogger<MessageController> _logger;
+        public MessageController(IServiceBusSender serviceBusSender, ILogger<MessageController> logger)
         {
             _serviceBusSender = serviceBusSender;
+            _logger = logger;
         }
 
         [HttpPost(Name ="SendMessage")]
-        public void Send(Message message)
+        public async Task Send(Message message)
         {
-            Console.WriteLine(message);
+            await _serviceBusSender.SendMessageAsync(message);
         }
     }
 }

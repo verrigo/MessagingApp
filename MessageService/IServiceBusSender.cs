@@ -2,6 +2,6 @@
 {
     public interface IServiceBusSender
     {
-        Task SendMessageAsync(string message);
+        Task SendMessageAsync<T>(T message);
     }
 }

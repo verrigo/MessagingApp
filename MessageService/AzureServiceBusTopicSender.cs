@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Azure;
+using System.Text.Json;
 
 namespace MessageService
 {
@@ -16,9 +17,10 @@ namespace MessageService
             _logger = logger;
         }
 
-        public async Task SendMessageAsync(string message)
+        public async Task SendMessageAsync<T>(T payLoad)
         {
-            ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
+            var message = JsonSerializer.Serialize(payLoad);
+            ServiceBusMessage serviceBusMessage = new(message);
             try
             {
                 await _serviceBusTopicSender.SendMessageAsync(serviceBusMessage).ConfigureAwait(false);
