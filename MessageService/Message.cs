@@ -1,0 +1,9 @@
+﻿namespace MessageService
+{
+    public class Message
+    {
+        public Guid SenderId { get; set; }
+        public Guid ReceiverId { get; set; }
+        public string MessageText { get; set; } = string.Empty;
+    }
+}
