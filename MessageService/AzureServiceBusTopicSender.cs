@@ -3,7 +3,7 @@ using Microsoft.Extensions.Azure;
 
 namespace MessageService
 {
-    public class AzureServiceBusTopicSender
+    public class AzureServiceBusTopicSender : IServiceBusSender
     {
         private readonly ServiceBusClient _azureServiceBusClient;
         private readonly ServiceBusSender _serviceBusTopicSender;
@@ -16,14 +16,14 @@ namespace MessageService
             _logger = logger;
         }
 
-        public async Task SendMessage(string message)
+        public async Task SendMessageAsync(string message)
         {
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
             try
             {
                 await _serviceBusTopicSender.SendMessageAsync(serviceBusMessage).ConfigureAwait(false);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(message: ex.Message);
             }

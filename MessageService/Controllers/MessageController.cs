@@ -7,11 +7,11 @@ namespace MessageService.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private IServiceBusClient _serviceBusClient;
+        private IServiceBusSender _serviceBusSender;
 
-        public MessageController(IServiceBusClient serviceBusClient)
+        public MessageController(IServiceBusSender serviceBusSender)
         {
-            _serviceBusClient = serviceBusClient;
+            _serviceBusSender = serviceBusSender;
         }
 
         [HttpPost(Name ="SendMessage")]
